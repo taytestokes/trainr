@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { authClient } from '@/lib/auth-client';
 import { Button } from '@/components/ui/button';
@@ -24,35 +23,24 @@ export default function SignUpPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
-
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const { data, error } = await authClient.signUp.email(
+    await authClient.signUp.email(
       {
         email,
         password,
         name: `${firstName} ${lastName}`,
+        callbackURL: '/dashboard',
       },
       {
         onRequest: () => setLoading(true),
-        onSuccess: () => {
-          router.push('/dashboard');
-        },
         onError: (reqCtx) => {
           console.error('Sign up error', reqCtx.error);
           setLoading(false);
         },
       },
     );
-
-    if (error) {
-      console.error('Sign up error', error);
-    }
-    console.log('Sign up response', data);
-    // TODO: Wire up to auth backend
-    console.log('Sign up submitted', { firstName, lastName, email, password });
   }
 
   return (
