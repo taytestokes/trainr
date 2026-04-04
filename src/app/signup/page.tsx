@@ -31,7 +31,7 @@ export default function SignUpPage() {
         email,
         password,
         name: `${firstName} ${lastName}`,
-        callbackURL: '/dashboard',
+        callbackURL: '/onboarding',
       },
       {
         onRequest: () => setLoading(true),

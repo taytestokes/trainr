@@ -23,6 +23,7 @@ model User {
   age           Int?
   height        Int?
   gender        String?
+  completedOnboarding Boolean   @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
