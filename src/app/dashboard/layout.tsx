@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DashboardSidebar } from "@/components/dashboard-sidebar";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default async function DashboardLayout({
   children,
@@ -36,6 +37,7 @@ export default async function DashboardLayout({
         <SidebarInset>
           <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4">
             <SidebarTrigger />
+            <ThemeToggle className="ml-auto" />
           </header>
           <main className="flex-1 p-4">{children}</main>
         </SidebarInset>
