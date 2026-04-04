@@ -32,6 +32,9 @@ export default function LoginPage() {
       },
       {
         onRequest: () => setLoading(true),
+        onSuccess: (reqCtx) => {
+          console.log('Login success', reqCtx.response);
+        },
         onError: (reqCtx) => {
           console.error('Login error', reqCtx.error);
           setLoading(false);
@@ -81,7 +84,7 @@ export default function LoginPage() {
           </Button>
           <p className="text-sm text-muted-foreground">
             Don&apos;t have an account?{' '}
-            <Link href="/sign-up" className="text-primary underline-offset-4 hover:underline">
+            <Link href="/signup" className="text-primary underline-offset-4 hover:underline">
               Sign up
             </Link>
           </p>
