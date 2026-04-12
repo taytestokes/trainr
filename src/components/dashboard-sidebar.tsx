@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboardIcon, LogOutIcon } from 'lucide-react';
+import { LayoutDashboardIcon, UserIcon } from 'lucide-react';
 
 import {
   Sidebar,
@@ -24,6 +24,11 @@ const navItems = [
     title: 'Dashboard',
     href: '/dashboard',
     icon: LayoutDashboardIcon,
+  },
+  {
+    title: 'Profile',
+    href: '/dashboard/profile',
+    icon: UserIcon,
   },
 ];
 
