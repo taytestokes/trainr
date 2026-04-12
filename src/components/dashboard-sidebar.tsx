@@ -1,10 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboardIcon, LogOutIcon } from "lucide-react";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { LayoutDashboardIcon, LogOutIcon } from 'lucide-react';
 
-import { authClient } from "@/lib/auth-client";
 import {
   Sidebar,
   SidebarContent,
@@ -16,12 +15,14 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar';
+
+import { SidebarUser } from '@/components/sidebar-user';
 
 const navItems = [
   {
-    title: "Dashboard",
-    href: "/dashboard",
+    title: 'Dashboard',
+    href: '/dashboard',
     icon: LayoutDashboardIcon,
   },
 ];
@@ -30,6 +31,7 @@ interface DashboardSidebarProps {
   user: {
     name: string;
     email: string;
+    image?: string;
   };
 }
 
@@ -65,26 +67,7 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <div className="flex flex-col gap-1 px-2 py-1 text-sm">
-              <span className="font-medium truncate">{user.name}</span>
-              <span className="text-xs text-muted-foreground truncate">
-                {user.email}
-              </span>
-            </div>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              onClick={() =>
-                authClient.signOut({ fetchOptions: { onSuccess: () => window.location.replace("/login") } })
-              }
-            >
-              <LogOutIcon />
-              <span>Sign out</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <SidebarUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );
