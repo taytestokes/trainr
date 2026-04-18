@@ -15,13 +15,19 @@ export async function completeOnboarding(formData: FormData) {
     redirect('/login');
   }
 
+  const name = (formData.get('name') as string)?.trim();
+  const phone = (formData.get('phone') as string)?.trim();
+  const location = (formData.get('location') as string)?.trim();
   const age = Number(formData.get('age'));
   const heightFeet = Number(formData.get('heightFeet'));
   const heightInches = Number(formData.get('heightInches'));
   const weight = Number(formData.get('weight'));
   const gender = formData.get('gender') as string;
 
-  if (!age || !heightFeet || !weight || !gender) {
+  // TODO: Handle image upload once storage infrastructure is in place
+  // const image = formData.get('image') as File | null;
+
+  if (!name || !age || !heightFeet || !weight || !gender) {
     throw new Error('All fields are required.');
   }
 
@@ -30,7 +36,15 @@ export async function completeOnboarding(formData: FormData) {
   await prisma.$transaction([
     prisma.user.update({
       where: { id: session.user.id },
-      data: { age, height, gender, completedOnboarding: true },
+      data: {
+        name,
+        age,
+        height,
+        gender,
+        completedOnboarding: true,
+        ...(phone && { phone }),
+        ...(location && { location }),
+      },
     }),
     prisma.weight.create({
       data: {
